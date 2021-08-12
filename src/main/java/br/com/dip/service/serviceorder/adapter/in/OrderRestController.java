@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.dip.service.serviceorder.domain.Order;
+import br.com.dip.service.serviceorder.port.in.CreateOrderPortIn;
 import br.com.dip.service.serviceorder.port.in.SearchOrderPortIn;
 
 @RestController
@@ -22,6 +25,9 @@ import br.com.dip.service.serviceorder.port.in.SearchOrderPortIn;
 public class OrderRestController {
 	@Autowired
 	private SearchOrderPortIn searchOrderPortIn;
+	
+	@Autowired
+	private CreateOrderPortIn createOrderPortIn;	
 	
 	@GetMapping("/order/{id}")
 	public ResponseEntity<Order> getOrder(@PathVariable(value="id") int id) {
@@ -38,6 +44,7 @@ public class OrderRestController {
 	}
 	
 	
+	
 	@GetMapping("/Orders")
 	public ResponseEntity<List<Order>> listOrder() {
 		try {
@@ -52,11 +59,11 @@ public class OrderRestController {
 	
 	}
 	
+	
 	@PostMapping("/Order")
-	public ResponseEntity<Order> getOrder(@RequestBody @Valid Order order) {
+	public ResponseEntity<Order> createOrder(@RequestBody @Valid Order o) {
 		try {	
-			//TODO: implement port, adapter, service for this method
-			
+			Order order = createOrderPortIn.createOrder(o);
 			return new ResponseEntity<Order>(order, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
