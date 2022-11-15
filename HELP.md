@@ -9,7 +9,7 @@ For further reference, please consider the following sections:
 * [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#using-boot-devtools)
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#boot-features-developing-web-applications)
 * [Spring Web Services](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#boot-features-webservices)
-
+ 
 ### Guides
 The following guides illustrate how to use some features concretely:
 
